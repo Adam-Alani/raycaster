@@ -66,10 +66,10 @@ impl GameEngine {
 
     pub fn handle_key(&mut self, key: &str) {
         match key {
-            "w" => self.game.move_forward(0.1),
-            "s" => self.game.move_backward(0.1),
-            "a" => self.game.rotate_left(1.0),
-            "d" => self.game.rotate_right(1.0),
+            "w" => self.game.move_cam(0.1),
+            "s" => self.game.move_cam(-0.1),
+            "a" => self.game.rotate(-1.0),
+            "d" => self.game.rotate(1.0),
             _ => {}
         }
     }

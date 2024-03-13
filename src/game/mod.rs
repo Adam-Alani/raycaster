@@ -30,35 +30,17 @@ impl Game {
         }
     }
 
-    pub fn rotate_left(&mut self, angle: f64) {
-        self.camera.dir_angle -= angle;
-        self.camera.dir_angle %= 360.0;
-    }
-
-    pub fn rotate_right(&mut self, angle: f64) {
+    pub fn rotate(&mut self, angle: f64) {
         self.camera.dir_angle += angle;
         self.camera.dir_angle %= 360.0;
     }
 
-    pub fn move_forward(&mut self, distance: f64) {
+    pub fn move_cam(&mut self, distance: f64) {
         let dir_rad = self.camera.dir_angle * std::f64::consts::PI / 180.0;
         let x = dir_rad.cos() * distance;
         let y = dir_rad.sin() * distance;
         let new_x = self.camera.position.x + x;
         let new_y = self.camera.position.y + y;
-
-        if self.map.map[new_x as usize][new_y as usize] == Block::Empty {
-            self.camera.position.x = new_x;
-            self.camera.position.y = new_y;
-        }
-    }
-
-    pub fn move_backward(&mut self, distance: f64) {
-        let dir_rad = self.camera.dir_angle * std::f64::consts::PI / 180.0;
-        let x = dir_rad.cos() * distance;
-        let y = dir_rad.sin() * distance;
-        let new_x = self.camera.position.x - x;
-        let new_y = self.camera.position.y - y;
 
         if self.map.map[new_x as usize][new_y as usize] == Block::Empty {
             self.camera.position.x = new_x;

@@ -67,7 +67,15 @@ impl Raycaster for Canvas {
             let wall_start = (self.half_height - wall_height) as usize;
             let wall_end = (self.half_height + wall_height) as usize;
 
-            self.render_column(i, 0, wall_start, Pixel::new(0.2, 0.2, 0.7));
+            for y in 0..wall_start {
+                let shaded_color = Pixel::new(
+                    // invert the shading
+                    0.2 - 0.2 * y as f64 / self.half_height,
+                    0.3 - 0.3 * y as f64 / self.half_height,
+                    0.8 - 0.8 * y as f64 / self.half_height,
+                );
+                self.canvas[y][i] = shaded_color;
+            }
             match wall {
                 Block::Empty => {}
                 Block::Wall(texture) => {
@@ -94,7 +102,14 @@ impl Raycaster for Canvas {
                     }
                 }
             }
-            self.render_column(i, wall_end, self.height, Pixel::new(0.3, 0.3, 0.3));
+            for y in wall_end..self.height {
+                let shaded_color = Pixel::new(
+                    0.1 * y as f64 / self.height as f64,
+                    0.4 * y as f64 / self.height as f64,
+                    0.2 * y as f64 / self.height as f64,
+                );
+                self.canvas[y][i] = shaded_color;
+            }
             // Increment ray angle, basically go to next "column"
             ray_angle += game.camera.fov / self.width as f64;
         }

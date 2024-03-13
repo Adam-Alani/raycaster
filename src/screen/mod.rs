@@ -19,10 +19,4 @@ impl Canvas {
             half_height: height as f64 / 2.0,
         }
     }
-
-    pub fn render_column(&mut self, x: usize, start: usize, end: usize, color: Pixel) {
-        for y in start..end {
-            self.canvas[y][x] = color;
-        }
-    }
 }
