@@ -6,3 +6,5 @@ to run in dev:
 cargo watch -- wasm-pack build --target web
 then
 devserver
+
+or build: wasm-pack build --target web
